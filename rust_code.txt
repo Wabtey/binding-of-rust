@@ -1,0 +1,31 @@
+use std::io
+	the use statement is located in the prelude
+	bring a type into scope (explicitly)
+
+fn name(){}
+	method definition
+
+println!(«  »);
+	prompt stating
+
+let mut guess = String::new();
+let fabien = « god »;
+	let create the variable, immutable by default
+	adding the mut attribute after let 
+		turn it to a mutable variable
+
+io::stdin()
+	//store it in guess
+  .read_line(&mut guess)	
+  .expect("Failed to read line");
+
+let _var
+	create a variable and remove the unused warning
+
+//comments
+cmd+maj+/
+	put in comment the selection
+a expression don’t have a ;
+a statement have
+
+

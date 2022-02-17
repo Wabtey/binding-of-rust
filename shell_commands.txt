@@ -1,0 +1,24 @@
+ls -a
+	list all file/folder contained in the current directory (the -a attribute add hidden file)
+pwd
+	Present Working Directory —
+cd <dir>
+	change directory to <dir>
+cd ..
+	go up a directory
+mkdir <name>
+	create a folder
+touch <file.extension>
+	create a the file into the current directory
+open <something>
+cp <file name>
+	copy the file
+rm <file/something>
+	remove this something
+mv <file> <dir>
+	move the file to the <dir> / rename current file if not moved
+
+
+
+man <command>
+	Manual
