@@ -1,44 +1,48 @@
-use std::path::Path;
+use serde_json::from_str;
 use std::fs::File;
-use serde::Deserialize;
-
-//from https://github.com/nightraiser/daily-code-rust
-
-#[derive(Debug, Deserialize)]
-#[serde(rename_all = “camelCase”)]
-
-struct Artist {
-
-constituent_id: i32,
-
-display_name: String,
-
-artist_bio: String,
-
-nationality: String,
-
-gender: String,
-
-begin_date: i32,
-
-end_date: i32,
-
-wiki_qid: String,
-
-ulan: String
-
-}
+use std::io::copy;
+use std::io::stdout;
 
 fn main() {
-    let json_file_path = Path::new(“E:\projects Rust\MoMA\Artists.json”);
+    let the_file = r#"[
+	{
+	  "ConstituentID": 1,
+	  "DisplayName": "Robert Arneson",
+	  "ArtistBio": "American, 1930–1992",
+	  "Nationality": "American",
+	  "Gender": "Male",
+	  "BeginDate": 1930,
+	  "EndDate": 1992,
+	  "Wiki QID": null,
+	  "ULAN": null
+	},
+	{
+	  "ConstituentID": 2,
+	  "DisplayName": "Doroteo Arnaiz",
+	  "ArtistBio": "Spanish, born 1936",
+	  "Nationality": "Spanish",
+	  "Gender": "Male",
+	  "BeginDate": 1936,
+	  "EndDate": 0,
+	  "Wiki QID": null,
+	  "ULAN": null
+	}]"#;
 
-    let file = File::open(json_file_path)
-            .expect("file not found");
+    let mut json_file = File::open("E:/Code/projects Rust/MoMA/Artists.json").unwrap();
+    let mut stdout = stdout(); //god !
+    let str = &copy(&mut json_file, &mut stdout).unwrap().to_string();
 
-    let artists:Vec<Artist> = serde_json::from_reader(file)
-            .expect(“error while reading or parsing”);
 
-    for artist in artists {
-        println!("Hello {} number : {} from {}", artist.display_name, artist.constituent_id, artist.nationality)
-    }
+    // the file : E:/Code/projects Rust/MoMA/Artists.json
+	// the file : /private/student/n/in/fepain/L2_2021-2022/DSB/MoMA/Artist.json
+    let json: serde_json::Value =
+        serde_json::from_str(str)
+        	.expect("JSON was not well-formatted");
+
+    let artist: Option<&str> = json.get(0)
+        //.and_then(|value| value.get(1))
+        .and_then(|value| value.get("DisplayName"))
+        .and_then(|value| value.as_str());
+
+    print!("artist : {:?}", artist)
 }
