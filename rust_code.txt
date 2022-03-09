@@ -28,4 +28,12 @@ cmd+maj+/
 a expression don’t have a ;
 a statement have
 
+	Retour d'Err
+let v: Value = serde_json::from_str(str)?;
+// La ligne du dessus va être équivalent a ce qui est en dessous
+let v: Value = match serde_json::from_str(str) {
+  Ok(value) => value,
+  Err(e) => return e,
+};
 
+	
