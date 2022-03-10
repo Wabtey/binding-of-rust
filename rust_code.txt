@@ -36,4 +36,7 @@ let v: Value = match serde_json::from_str(str) {
   Err(e) => return e,
 };
 
+	Result<(String)> -> String
+Result<(String)>.unwrap();
+
 	

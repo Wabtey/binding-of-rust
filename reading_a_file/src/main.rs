@@ -1,9 +1,6 @@
-use std::io::Write;
+use std::fs;
 
 use serde_json::from_str;
-use std::fs::File;
-use std::io::copy;
-use std::io::stdout;
 
 // use serde_json::Value;
 // for untyped_example
@@ -14,16 +11,21 @@ use std::io::stdout;
 	use serde::{Deserialize, Serialize};
 	// use serde_json::Result;
 
+// to read a json file
+	// extern crate serialize;
+	// use serialize::json;
+
 /*
  * DEBUG with Elzapat <3
  * 
  * https://stackoverflow.com/questions/30292752/how-do-i-parse-a-json-file
  * https://docs.serde.rs/serde_json/
+ * https://doc.rust-lang.org/std/io/trait.Read.html
  */
 
 fn main()
 {
-    let the_file = r#"
+    let _the_file = r#"
 	{
 	  "constituent_id": 1,
 	  "display_name": "Robert Arneson",
@@ -32,31 +34,25 @@ fn main()
 	  "gender": "Male",
 	  "begin_date": 1930,
 	  "end_date": 1992,
-	  "wiki_qid": "Q1063584",
-	  "ulan": "500027998"
+	  "wiki_qid": null,
+	  "ulan": null
 	}"#;
 
 	let path = "E:/Code/projects Rust/MoMA/Artists-reformed.json";
-
-    let mut json_file =
-		File::open(path).unwrap();
-    //let mut stdout = stdout(); //god !
-
-
-	print!(json_file);
-	let mut content = std::fs::read_to_string(path).unwrap().to_strz;
-
-    // let str = &copy(&mut json_file, &mut content)
-	// 	.unwrap().to_string();
-
-    // the file : E:/Code/projects Rust/MoMA/Artists.json
+	// the file : E:/Code/projects Rust/MoMA/Artists-reformed.json
 	// the file : /private/student/n/in/fepain/L2_2021-2022/DSB/MoMA/Artist.json
+
+	let content = fs::read_to_string(path)
+		.expect("Unable to read file");
+
+	// println!("start {} end", content);
+    // let mut stdout = stdout(); //god !
 
 //-----test des methodes-----
 
 	// option_example(content);
 	// untyped_example(the_file);
-	typed_example(content);
+	typed_example(&content);
 
 //-----------demo------------
 	println!("-----This is a freaking demo-----");
@@ -64,6 +60,8 @@ fn main()
 	typed_example_person();
 
  }
+
+
 
 //--------------------OPTION_EXAMPLE----------------------------------------
 
@@ -124,25 +122,28 @@ struct Artist {
 	gender: Option<String>,
 	begin_date: i16,
 	end_date: i16,
-	wiki_qid: Option<String>, //Vec<String>
-	ulan: Option<String>,
+	wiki_qid: Option<String>, 
+	ulan: Option<String>
 }
 
 fn typed_example(str: &str) -> Result<()>
 {
 	println!("-----typed_example-----");
 	
-    // Parse the string of data into a Artist object. This is exactly the
-    // same function as the one that produced serde_json::Value above, but
-    // now we are asking it for a Artist as output.
-    let a: Vec<Artist> = serde_json::from_str(str).unwrap();
+    let artists: Vec<Artist> = serde_json::from_str(str).unwrap();
 
-	println!("{:?}", a);
+	// println!("{:?}", artists);
 	
-	println!("-----marker-----");
+	println!("--------marker---------");
 
-    // Do things just like with any other Rust data structure.
-    println!("Please call {} at the number {}", a[0].display_name, a[0].constituent_id);
+	let artist_nationality: String =
+		match &artists[0].nationality {
+			Some(s) => s.to_string(),
+			None => "".to_string(),
+		};
+
+    println!("Please introduce {} who's a {}",
+		artists[0].display_name, artist_nationality);
 
     Ok(())
 }
