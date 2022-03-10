@@ -2,10 +2,8 @@ use std::fs;
 
 use serde_json::from_str;
 
-// use serde_json::Value;
 // for untyped_example
 	use serde_json::{Result, Value};
-
 
 // typed_example
 	use serde::{Deserialize, Serialize};
