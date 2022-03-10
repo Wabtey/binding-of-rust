@@ -2,3 +2,4 @@ https://stackoverflow.com/questions/56279350/how-to-get-at-one-particular-item-i
 https://docs.serde.rs/serde_json/
 Elzapat
 https://doc.rust-lang.org/std/io/trait.Read.html
+https://stackoverflow.com/questions/31192956/whats-the-de-facto-way-of-reading-and-writing-files-in-rust-1-x

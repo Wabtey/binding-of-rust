@@ -21,6 +21,7 @@ use serde_json::from_str;
  * https://stackoverflow.com/questions/30292752/how-do-i-parse-a-json-file
  * https://docs.serde.rs/serde_json/
  * https://doc.rust-lang.org/std/io/trait.Read.html
+ * https://stackoverflow.com/questions/31192956/whats-the-de-facto-way-of-reading-and-writing-files-in-rust-1-x
  */
 
 fn main()
