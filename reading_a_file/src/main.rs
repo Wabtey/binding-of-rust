@@ -37,10 +37,7 @@ fn main()
 	  "ulan": null
 	}"#;
 
-	//TODO : put a .json example in the reading_a_file to make this tutorial independent
-	let path = "/private/student/n/in/fepain/R/ArtManipulation/MoMA/Artists-reformed.json";
-	// the file : E:/Code/projects Rust/MoMA/Artists-reformed.json
-	// the file : /private/student/n/in/fepain/L2_2021-2022/DSB/MoMA/Artist.json
+	let path = "assets/Artists-reformed.json";
 
 	let content = fs::read_to_string(path)
 		.expect("Unable to read file");
@@ -146,7 +143,7 @@ fn typed_example(str: &str) -> Result<()>
 	let mut artist1 = foo.replace("display_name", &artists[0].display_name);
 	artist1 = artist1.replace("nationality", artist_nationality);
 
-	fs::write("/private/student/n/in/fepain/R/binding-of-rust/reading_a_file/tmp/foo.txt",
+	fs::write("/tmp/foo.txt",
 			 artist1)
 		.expect("Unable to write file");
 
